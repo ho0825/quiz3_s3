@@ -3,6 +3,23 @@ const app = express()
 const port = 3000
 const jwt = require('jsonwebtoken')
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://hozheheng:password1234@cluster0.xqqtiji.mongodb.net/?retryWrites=true&w=majority";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+    serverApi: {
+      version: ServerApiVersion.v1,
+      strict: true,
+      deprecationErrors: true,
+    }
+  });
+
+client.connect().then(res => {
+    console.log(res)
+})
+
+// insert user info
 let dbmongoUsers = [
     {
         username : "ho",
@@ -18,30 +35,59 @@ let dbmongoUsers = [
     }
 ]
 
-function login(reqUsername, reqPassword){
-    let matchuser = dbmongoUsers.find(user => user.username == reqUsername)
-    if (!matchuser) return "User not found!"
+//log in function
+async function login(reqUsername, reqPassword){
+    let matchuser = await client.db('benr_2434').collection('user').findOne(
+        {
+            $and:  [
+                {username: {$eq: reqUsername}},
+                {password: {$eq: reqPassword}}
+            ]
+        })
 
+    console.log(matchuser)
+    
+    if (!matchuser) 
+    return "User not found!"
     
     if (matchuser.password == reqPassword){
         return matchuser
     }
     else {
-        return "Wrong password!"
+         return "Wrong password!"
     }
+    
+    // let matchuser = dbmongoUsers.find(user => user.username == reqUsername)
+    // if (!matchuser) return "User not found!"
+
+    
+    // if (matchuser.password == reqPassword){
+    //     return matchuser
+    // }
+    // else {
+    //     return "Wrong password!"
+    // }
 
 }
 
+//sign up function
 function signup(reqUsername, reqPassword, reqName, reqEmail){
-    dbmongoUsers.push({
+    client.db('benr_2434').collection('user').insertOne({
         username : reqUsername,
         password : reqPassword,
         name : reqName,
         email : reqEmail,
     })
+    // dbmongoUsers.push({
+    //     username : reqUsername,
+    //     password : reqPassword,
+    //     name : reqName,
+    //     email : reqEmail,
+    // })
     return "Registered Successful"
 }
 
+//generate random token
 function TokenGenerator(userData){
     const token = jwt.sign(
         userData, 'password',
@@ -50,6 +96,7 @@ function TokenGenerator(userData){
     return token
 }
 
+//verify token with the token use to log in
 function verifyToken(req, res, next){
     let header = req.headers.authorization
     console.log(header)
@@ -83,8 +130,8 @@ app.post('/login', (req, res) => {
 
     let result = login(req.body.Username,req.body.Password)
 
-    let token = TokenGenerator(result)
-    res.send(token)
+    //let token = TokenGenerator(result)
+    //res.send(token)
 })
 
 app.get('/utem', verifyToken, (req, res) => {

@@ -1,1 +1,24 @@
-POST http://localhost:3000/log
+POST http://localhost:3000/signup
+Content-Type: application/json
+
+{
+    "Username" : "khoo22",
+    "Password" : 9876,
+    "Name" : "Ho Zhe Heng",
+    "Email" : "hozheheng123@gmail.com"
+}
+
+###
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "Username" : "ho",
+    "Password" : 1234
+}
+
+###
+
+GET http://localhost:3000/utem
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhvIiwicGFzc3dvcmQiOjEyMzQsIm5hbWUiOiJITyIsImVtYWlsIjoiaG9AdXRlbS5zdHVkZW50LmVkdS5teSIsImlhdCI6MTY4MTM3MTg4NCwiZXhwIjoxNjgxMzcxOTQ0fQ.IJKgazA23whSAYsD2FHtnRAC13rA3rFVMaAdAFF0KuE
