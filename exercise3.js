@@ -56,18 +56,6 @@ async function login(reqUsername, reqPassword){
     else {
          return "Wrong password!"
     }
-    
-    // let matchuser = dbmongoUsers.find(user => user.username == reqUsername)
-    // if (!matchuser) return "User not found!"
-
-    
-    // if (matchuser.password == reqPassword){
-    //     return matchuser
-    // }
-    // else {
-    //     return "Wrong password!"
-    // }
-
 }
 
 //sign up function
