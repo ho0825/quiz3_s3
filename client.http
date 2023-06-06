@@ -2,10 +2,10 @@ POST http://localhost:3000/signup
 Content-Type: application/json
 
 {
-    "Username" : "Joeknee",
-    "Password" : 9999,
-    "Name" : "Low Wei Hong",
-    "Email" : "joekneelow@gmail.com"
+    "Username" : "Brenden",
+    "Password" : 8888,
+    "Name" : "Brenden Ang",
+    "Email" : "brendenang@gmail.com"
 }
 
 ###
@@ -14,8 +14,8 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "Username" : "Goh",
-    "Password" : 678
+    "Username" : "Jacky Yap",
+    "Password" : 2222
 }
 
 ###
@@ -24,4 +24,4 @@ GET http://localhost:3000/utem
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhvIiwicGFzc3dvcmQiOjEyMzQsIm5hbWUiOiJITyIsImVtYWlsIjoiaG9AdXRlbS5zdHVkZW50LmVkdS5teSIsImlhdCI6MTY4MTM3MTg4NCwiZXhwIjoxNjgxMzcxOTQ0fQ.IJKgazA23whSAYsD2FHtnRAC13rA3rFVMaAdAFF0KuE
 
 ###
-POST http://localhost:3000/log
+GET http://localhost:3000/register

@@ -48,12 +48,13 @@ async function login(reqUsername, reqPassword){
     console.log(matchuser)
     
     if (!matchuser) 
-    return "User not found!"
+        return "User not found!"
     
-    if (matchuser.password == reqPassword){
-        return matchuser
+    else if (matchuser.password == reqPassword){
+        return "Log in successful"
+        //return matchuser
     }
-    else {
+    else if ((matchuser.password != reqPassword)) {
          return "Wrong password!"
     }
 }
@@ -114,9 +115,14 @@ app.post('/signup', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    console.log(req.body)
+    //console.log(req.body)
 
-    let result = login(req.body.Username,req.body.Password)
+    let result = login(
+        req.body.Username,
+        req.body.Password
+    )
+
+    res.send(result)
 
     //let token = TokenGenerator(result)
     //res.send(token)
@@ -127,7 +133,7 @@ app.get('/utem', verifyToken, (req, res) => {
 })
 
 app.post('/log', (req, res) => {
-    res.send('Hi ho')
+    console.log(req.body)
   })
 
 app.get('/register', (req, res) => {
